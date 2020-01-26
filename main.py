@@ -216,7 +216,6 @@ def upload_file():
                 u'hashtag_g': dis, 
                 u'pic_urls':pic_urls           
                 }
-           
             mydata.set(data)
             return render_template("objres.html", name = urls,f=fin,user="normal")
         return render_template("objres.html", name = urls,f=res,user="o_iden")
@@ -550,8 +549,13 @@ def TweetSearch(tweet):
   return status_texts
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True, host='0.0.0.0',port=8080)
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0',port=8080)
+
+
+
+
+
 
 
 
