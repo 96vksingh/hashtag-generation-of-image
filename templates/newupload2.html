@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+Template Name: Chillaid
+Author: <a href="https://www.os-templates.com/">OS Templates</a>
+Author URI: https://www.os-templates.com/
+Copyright: OS-Templates.com
+Licence: Free to use under our free template licence terms
+Licence URI: https://www.os-templates.com/template-terms
+-->
+<html lang="">
+<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
+<head>
+<title>Chillaid</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+.file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+.file-upload .file-select.file-select-disabled{opacity:0.65;}
+.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+
+
+displ
+{
+display: block;
+margin-left : auto;
+margin-right : auto;
+}
+
+
+
+
+</style>
+</head>
+
+
+<body id="top">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+{% extends "template.html" %}
+    {% block content %}
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/hash1.jpg');">
+  <div id="pageintro" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <article>
+      <h3 class="heading">Hashtag Generation</h3>
+      <p>Hashtags are an indispensable unit of the social media platform and are immensely used for brand promotion and social media discussions. 
+      </p>
+      
+    </article>
+    <!-- ################################################################################################ -->
+  </div>
+</div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay light" style="background-image:url('static/images/demo/backgrounds/lp.jpg');">
+  <section id="services" class="hoc container clear"> 
+   
+    <ul class="nospace group elements elements-three">
+      <li class="one_half ">
+        <article><a href="#"><i class="fas fa-hashtag"></i></a>
+          <h6 class="heading">	General Purpose </h6>
+          <p>Assists users to use a set of hashtags by processing their images. According to the result obtained, the images will be automatically associated and tagged with several related hashtags. </p>
+        </article>
+      </li>
+       </li>
+      
+      <li class="one_half">
+        <article><a href="#"><i class="fas fa-hashtag"></i></a>
+          <h6 class="heading">Commercial purpose </h6>
+          <p>Inclined towards the markets based on social media. The module requires machine learning to identify trending tags on Twitter and then to utilize them from a product selling perspective. </p>
+          </article>
+
+    </ul>
+   </section>
+</div>
+
+
+
+<div class="wrapper row2">
+  <section id="ctdetails" class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+    
+    <form method="post" action="/res" enctype="multipart/form-data">
+    <figure class="center ">
+      <div class="file-upload">
+  <div class="file-select">
+    <div class="file-select-button" id="fileName">Choose File</div>
+    <div class="file-select-name" id="noFile">No file chosen...</div> 
+    <!-- <input type="file" name="chooseFile" id="chooseFile"> -->
+    <input id="chooseFile" type="file" name="files[]" multiple="true" autocomplete="off" required>
+  </div>
+</div>
+<br>
+ <input type="radio" name = "radio" value="1">   Business
+    <input type="radio" name = "radio" value="2">    Usual
+    
+    <button type="submit" value="submit" style="width:200px">Submit</button>
+    
+    </figure>
+    
+    </form>
+    
+    <!-- ################################################################################################ -->
+  </section>
+</div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
+  <footer id="footer" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <div class="one_third first">
+      <h1 class="logoname"><a href="index.html">Fledge</h1>
+      <p>It aims to automate hashtag generation for any potential twitter handle and provide them with appropriate hashtags, eliminating the need to contemplate about inputting tags every time they Tweet.</p> 
+       <a href="#"></a></p>
+      <ul class="faico clear">
+        <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
+        <li><a class="faicon-google-plus" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+        <li><a class="faicon-linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
+        <li><a class="faicon-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+        <li><a class="faicon-vk" href="#"><i class="fab fa-vk"></i></a></li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Site Links</h6>
+      <ul class="nospace linklist">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Text Categorization</a></li>
+        <li><a href="#">Hashtag Generation</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Have a Question ?</h6>
+          <ul class="nospace linklist">
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.HealthDiagnosis.com</span></a></li>
+                </ul>
+    </div>
+    <!-- ################################################################################################ -->
+  </footer>
+</div>
+<!-- JAVASCRIPTS -->
+<script src="static/layout/scripts/jquery.min.js"></script>
+<script src="static/layout/scripts/jquery.backtotop.js"></script>
+<script src="static/layout/scripts/jquery.mobilemenu.js"></script>
+<!-- Homepage specific -->
+<script src="static/layout/scripts/jquery.easypiechart.min.js"></script>
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+
+
+<!-- / Homepage specific -->
+{% endblock %}
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,12 @@
+Flask==0.12
+twitter
+google-cloud-storage
+google-cloud-vision
+tensorflow_hub
+numpy
+Pillow
+Werkzeug
+langdetect
+google-cloud-language
+firebase-admin
+matplotlib
