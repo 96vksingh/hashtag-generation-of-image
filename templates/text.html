@@ -9,8 +9,8 @@ Licence URI: https://www.os-templates.com/template-terms
 -->
 <html lang="">
 <!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
-<head style="">
-<title>Chillaid</title>
+<head>
+<title>Fledge</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
@@ -23,13 +23,12 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/contact.jpg');">
+<div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/t7.png');">
   <div id="pageintro" class="hoc clear"> 
     <!-- ################################################################################################ -->
     <article>
-      <h3 class="heading">Social Media</h3>
-      <p>Hashtags are an indispensable unit of the social media platform and are immensely used for brand promotion and social media discussions. 
-      </p>
+      <h3 class="heading">Text Classification</h3>
+      <p></p>
       
     </article>
     <!-- ################################################################################################ -->
@@ -37,37 +36,18 @@ Licence URI: https://www.os-templates.com/template-terms
 </div>
 
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row2">
   <section id="ctdetails" class="hoc container clear"> 
     <!-- ################################################################################################ -->
     <div class="sectiontitle">
-      <h6 class="heading font-x2">Contact Information</h6>
+      
     </div>
-    <figure class="one_half first">
-      <ul class="nospace clear">
-        <li class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Give us a call:</strong> +00 (123) 456 7890</span></li>
-        <li class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Send us a mail:</strong> support@domain.com</span></li>
-        <li class="block clear"><a href="#"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Come visit us:</strong> Directions to <a href="#">our location</a></span></li>
-      </ul>
-    </figure>
-    <article class="one_half">
-      <h6 class="heading">Message for Querry</h6>
-       <form action="#" method="post">
-        <fieldset>
-          <legend>Newsletter:</legend>
-          <input type="text" value="" placeholder="Name">
-          <input type="text" value="" placeholder="Email">
-          <input type="text" value="" placeholder="Message">
-          <button type="submit" value="submit">Submit</button>
-        </fieldset>
-      </form>
-    </article>
+    
+    
     <!-- ################################################################################################ -->
   </section>
 </div>
-<!-- ################################################################################################ -->
+
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
@@ -88,18 +68,18 @@ Licence URI: https://www.os-templates.com/template-terms
     <div class="one_third">
       <h6 class="heading">Site Links</h6>
       <ul class="nospace linklist">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Text Categorization</a></li>
-        <li><a href="#">Hashtag Generation</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('text') }}">Text Categorization</a></li>
+        <li><a href="{{ url_for('tag') }}">Hashtag Generation</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
       </ul>
     </div>
     <div class="one_third">
       <h6 class="heading">Have a Question ?</h6>
           <ul class="nospace linklist">
                   <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.HealthDiagnosis.com</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.Fledge.com</span></a></li>
                 </ul>
     </div>
     <!-- ################################################################################################ -->

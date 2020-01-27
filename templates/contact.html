@@ -10,7 +10,7 @@ Licence URI: https://www.os-templates.com/template-terms
 <html lang="">
 <!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Chillaid</title>
+<title>Fledge</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
@@ -69,7 +69,6 @@ Licence URI: https://www.os-templates.com/template-terms
 </div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
   <footer id="footer" class="hoc clear"> 
     <!-- ################################################################################################ -->
@@ -88,18 +87,18 @@ Licence URI: https://www.os-templates.com/template-terms
     <div class="one_third">
       <h6 class="heading">Site Links</h6>
       <ul class="nospace linklist">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Text Categorization</a></li>
-        <li><a href="#">Hashtag Generation</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('text') }}">Text Categorization</a></li>
+        <li><a href="{{ url_for('tag') }}">Hashtag Generation</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
       </ul>
     </div>
     <div class="one_third">
       <h6 class="heading">Have a Question ?</h6>
           <ul class="nospace linklist">
                   <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.HealthDiagnosis.com</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.Fledge.com</span></a></li>
                 </ul>
     </div>
     <!-- ################################################################################################ -->

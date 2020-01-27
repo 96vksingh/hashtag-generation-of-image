@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-py3
+FROM tiangolo/uwsgi-nginx-flask
 
 # LABEL image for a very simple flask application
 COPY ./requirements.txt /docker-flask/requirements.txt

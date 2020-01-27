@@ -10,7 +10,7 @@ Licence URI: https://www.os-templates.com/template-terms
 <html lang="">
 <!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Chillaid</title>
+<title>Fledge</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
@@ -73,7 +73,7 @@ Licence URI: https://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
     <section class="group shout">
       <figure class="one_half first"><img src="static/images/demo/h1.jpg" alt="">
-        <figcaption class="heading"><a href="{{ url_for('upload_form') }}">Hashtag Generation</a></figcaption>
+        <figcaption class="heading"><a href="#">Hashtag Generation</a></figcaption>
       </figure>
       <figure class="one_half"><img src="static/images/demo/t4.png " alt="" border=" 1px solid #ddd">
         <figcaption class="heading"><a href="#">Text Classification</a></figcaption>
@@ -119,66 +119,48 @@ Licence URI: https://www.os-templates.com/template-terms
 </div>
 
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper gradient">
-  <div class="hoc container clear"> 
+
+
+
+
+
+<div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/.jpg'); background: linear-gradient(to top, #ccffff 0%, #666699 204%);">
+  <section id="services" class="hoc container clear"> 
     <!-- ################################################################################################ -->
     <div class="sectiontitle">
-      
       <h6 class="heading font-x2">Benefits</h6>
     </div>
-    <ul class="nospace group team">
-      <li class="one_third first">
-        <figure><a class="imgover" href="#"><img src="static/images/demo/348x400.png" alt=""></a>
-          <figcaption><strong>A. Doe</strong> <em>Euismod nec hendrerit</em></figcaption>
-        </figure>
+    <ul class="nospace group elements elements-three">
+      <li class="one_third">
+        <article><a href="#"><i class="fas fa-smile"></i></a>
+         
+          <p>The proposed system uses image processing to generate hashtags rather than requesting keywords from the user. Therefore, what separates the proposed system from most of the existing systems is the fact that the user does not need to ponder over any input except the image. </p>
+       <br><br>
+        </article>
+      </li>
+       </li>
+      <li class="one_third">
+        <article><a href="#"><i class="fas fa-smile"></i></a>
+          
+          <p>The proposed system helps fetch trending hashtags to extend the commercial reach of upcoming potential online sellers. Instagram is used extensively for such product based promotional activities. The concept of hashtags began from twitter and continues to evolve in this space. Therefore, tags are commercialized to produce lucrative results by bringing in a variety of customers.</p>
+          </article>
       </li>
       <li class="one_third">
-        <figure><a class="imgover" href="#"><img src="static/images/demo/348x400.png" alt=""></a>
-          <figcaption><strong>B. Doe</strong> <em>Vel velit aliquam massa</em></figcaption>
-        </figure>
-      </li>
-      <li class="one_third">
-        <figure><a class="imgover" href="#"><img src="static/images/demo/348x400.png" alt=""></a>
-          <figcaption><strong>C. Doe</strong> <em>Vulputate aliquet purus</em></figcaption>
-        </figure>
-      </li>
+        <article><a href="#"><i class="fas fa-smile"></i></a>
+          
+          <p>The hashtag itself is like a filter on Twitter. Searching a specific hashtag on twitter produces an output set containing information from all fields of work in relation to the tag searched. The model classifies this information into different categories based on their nature. Therefore, it becomes convenient for the user to restrict their feed intake.</p>
+          </article>
+
     </ul>
-    <!-- ################################################################################################ -->
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper coloured">
-  <section id="testimonials" class="hoc container clear"> 
-    <!-- ################################################################################################ -->
-    <div class="sectiontitle">
-      <p class="nospace font-xs">Maecenas ultrices faucibus felis</p>
-      <h6 class="heading font-x2">Nunc lacus nulla luctus duis</h6>
-    </div>
-    <article class="one_half first">
-      <figure class="clear"><img src="static/images/demo/100x100.png" alt="">
-        <figcaption>
-          <h6 class="heading">D. Doe</h6>
-          <em>Adipiscing fusce eu velit</em></figcaption>
-      </figure>
-      <blockquote>Pulvinar tortor quis nisi in hac habitasse platea dictumst donec ac tellus fusce venenatis laoreet elit sed est tortor molestie in consectetuer fringilla suscipit ut odio ut ac.</blockquote>
-    </article>
-    <article class="one_half">
-      <figure class="clear"><img src="static/images/demo/100x100.png" alt="">
-        <figcaption>
-          <h6 class="heading">E. Doe</h6>
-          <em>Mauris erat aliquam leo</em></figcaption>
-      </figure>
-      <blockquote>Orci vitae dolor scelerisque blandit morbi eu dui sed volutpat etiam leo leo bibendum vel dictum sed sollicitudin a mi pellentesque ligula nulla facilisi sed bibendum ornare.</blockquote>
-    </article>
     <!-- ################################################################################################ -->
   </section>
 </div>
 
-<!-- ################################################################################################ -->
+
+
+
+
+
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
@@ -199,18 +181,18 @@ Licence URI: https://www.os-templates.com/template-terms
     <div class="one_third">
       <h6 class="heading">Site Links</h6>
       <ul class="nospace linklist">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Text Categorization</a></li>
-        <li><a href="#">Hashtag Generation</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('text') }}">Text Categorization</a></li>
+        <li><a href="{{ url_for('tag') }}">Hashtag Generation</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
       </ul>
     </div>
     <div class="one_third">
       <h6 class="heading">Have a Question ?</h6>
           <ul class="nospace linklist">
                   <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.HealthDiagnosis.com</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.Fledge.com</span></a></li>
                 </ul>
     </div>
     <!-- ################################################################################################ -->
