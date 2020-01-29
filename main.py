@@ -29,11 +29,11 @@ from firebase_admin import credentials, firestore, initialize_app
 
 # For measuring the inference time.
 import time
-
+# tf.executing_eagerly()
 global i
 
 i=0
-
+tf.compat.v1.enable_eager_execution()
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
@@ -187,6 +187,7 @@ def upload_file():
                     fff.append(filename)
                     file.save(os.getcwd()+"/static/uploads/"+filename)
                     p=os.getcwd()+"/static/uploads/"+filename
+                    # resize_loc=imgresize(p,filename)
                     ur=upload_blob("projectimages_christ",p,filename)
                     urls.append(ur)
                     with io.open(p, 'rb') as image_file:
@@ -223,6 +224,20 @@ def upload_file():
         
             
 
+# def imgresize(path,name):
+#     img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+#     scale_percent = 60 # percent of original size
+#     width = int(img.shape[1] * scale_percent / 100)
+#     height = int(img.shape[0] * scale_percent / 100)
+#     dim = (width, height)
+# # resize image
+#     resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+#     cv2.imshow("resized",resized).save(os.getcwd()+"/static/uploads2/"+name)
+#     newp=os.getcwd()+"/static/uploads2/"+name
+#     print('Resized Dimensions : ',resized.shape)
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
+#     return newp
 
 # @app.route('/business')
 # def business():
@@ -457,7 +472,7 @@ def download_and_resize_image(url, new_width=256, new_height=256,
 #     text_bottom -= text_height - 2 * margin
 
 
-def draw_boxes(image, boxes, class_names, scores, max_boxes=10, min_score=0.1):
+def draw_boxes(boxes, class_names, scores, max_boxes=10, min_score=0.1):
     objs=[]
     for i in range(min(boxes.shape[0], max_boxes)):
         if scores[i] >= min_score:
@@ -479,15 +494,17 @@ def load_img(path):
 def run_detector(detector, path):
     img = load_img(path)
     converted_img  = tf.image.convert_image_dtype(img, tf.float32)[tf.newaxis, ...]
+    print(converted_img)
     start_time = time.time()
     result = detector(converted_img)
     end_time = time.time()
-    result = {key:value.numpy() for key,value in result.items()}
+    result={key:value.numpy() for key,value in result.items()}
+    print(result)
     print("Found %d objects." % len(result["detection_scores"]))
     print("Inference time: ", end_time-start_time)
-    objarray = draw_boxes(
-        img.numpy(), result["detection_boxes"],
+    objarray = draw_boxes(result["detection_boxes"],
         result["detection_class_entities"], result["detection_scores"])
+    sess.close()
     return objarray
 
 
@@ -568,11 +585,9 @@ def TweetSearch(tweet):
   return status_texts
 
 
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0',port=8080)
-
-
-
 
 
 
