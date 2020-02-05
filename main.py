@@ -25,13 +25,15 @@ import re
 from google.cloud import language_v1
 from google.cloud.language_v1 import enums
 from firebase_admin import credentials, firestore, initialize_app
-
+from monkeylearn import MonkeyLearn
+from operator import itemgetter 
 
 # For measuring the inference time.
 import time
 # tf.executing_eagerly()
 global i
-
+ml = MonkeyLearn("e9918015640d00a920847d9fc4688cbda1a6e11d")
+model_id="cl_o46qggZq"
 i=0
 tf.compat.v1.enable_eager_execution()
 now = datetime.now()
@@ -222,64 +224,11 @@ def upload_file():
         return render_template("objres.html", name = urls,f=res,user="o_iden")
 
         
-            
-
-# def imgresize(path,name):
-#     img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
-#     scale_percent = 60 # percent of original size
-#     width = int(img.shape[1] * scale_percent / 100)
-#     height = int(img.shape[0] * scale_percent / 100)
-#     dim = (width, height)
-# # resize image
-#     resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-#     cv2.imshow("resized",resized).save(os.getcwd()+"/static/uploads2/"+name)
-#     newp=os.getcwd()+"/static/uploads2/"+name
-#     print('Resized Dimensions : ',resized.shape)
-#     cv2.waitKey(0)
-#     cv2.destroyAllWindows()
-#     return newp
-
-# @app.route('/business')
-# def business():
-#     return render_template("objupload.html")    
-
-# @app.route('/objupload')
-# def objupload():
-#     return render_template("objupload.html")  
-
-# @app.route('/objres', methods=['GET', 'POST'])
-# def objres():  
-#     if request.method == 'POST':  
-#         f = request.files['file']       
-#         f.save(os.getcwd()+"/uploads/"+f.filename)  
-#         t=os.getcwd()+"/uploads/"+f.filename
-#         with io.open(t, 'rb') as image_file:
-#             content = image_file.read()
-#         image = vision.types.Image(content=content)
-#         response = client.label_detection(image=image)
-#         labels = response.label_annotations
-#         print('Labels:')
-#         tt=[]
-#         for label in labels:
-#             temp=label.description
-#             y=temp.replace(" ","")
-#             tt.append(y)
-#         vals=run_detector(detector, t)
-#         res = []
-#         for o in vals:
-#             if o not in res:
-#                 res.append(o)
-#         for objects in res:
-#             hashtags=HashSearch(objects)
 
 
-#         return render_template("objres.html", name = f.filename,data=tt,tata=res)     
-    
+
     
 
-# @app.route('/elements')
-# def elements():
-#     return render_template('elements.html')
 
 
 
@@ -364,6 +313,116 @@ def upload_file():
         
     #     return render_template('tweet.html',jj=ff)
     # return render_template('tweet.html')
+def listToString(s):  
+    str1 = ""    
+    for ele in s:  
+        str1 += ele    
+    return str1
+
+@app.route('/ana',methods=['GET', 'POST'])
+def analysse():
+    if request.method=='POST':
+        key=request.form['analy']
+        rr=TweetSearch(key)
+
+        # print(rr)
+        catego=[]
+        catego_val=[]
+        temp2=""
+        print("i came")
+        for uy in rr:
+            # if(uy == rr[-4]):
+            #     print(catego)
+            #     categories_name=[]
+            #     categories_score=[]
+            #     list2 = [x for x in catego if x != []]
+            #     for yt in list2:
+            #         categories_name.append(yt[0])
+            #         rq=float(yt[1])
+            #         categories_score.append(round(rq, 2))
+            #     fig = plt.figure(1,figsize=(15,5))
+            #     plt.subplot(131)
+                # print(categories_name+"\n") 
+                # ax = fig.add_axes([0,0,1,1])
+                # ax.bar(categories_name,categories_score)
+                # y_pos = np.arange(len(categories_name))
+                # plt.bar(y_pos, categories_score, align='center', alpha=0.5)
+                # plt.savefig('static/images/plot.png')
+                # return render_template('analy.html',catego=catego,urllll="static/images/plot.png")
+            temp=clean_text(uy)
+            temp1=[]
+            temp1.append(temp)
+            result = ml.classifiers.classify(model_id, temp1)
+            # print(result.body)
+            res = list(map(itemgetter('classifications'), result.body)) 
+            res_tag_name=list(map(itemgetter('tag_name'),res[0]))
+            trm_c=list(map(itemgetter('confidence'),res[0]))
+            # new_str=str(res_tag_name)
+            # l=len(new_str)
+            # n_st=new_str[2,l-2]
+            # res_tag_confidence=float(str(trm_c))
+            print("_______________________________________-")
+            print("Tag: " + res_tag_name[0]) 
+            print(trm_c[0])
+            print("_______________________________________-") 
+            if (res_tag_name[0] in catego):
+                inf=catego.index(res_tag_name[0])
+                temp=(float(catego_val[inf])+float(trm_c[0]))/2
+                temp2=round(temp,2)
+                
+                catego_val[inf]=temp2
+                temp=0
+            else:
+                te=round(trm_c[0],2)
+                
+                gret=str(te)
+                catego.append(res_tag_name[0])
+                catego_val.append(gret)
+                
+            # print(val_list[key_list.index(112)]) 
+            temp1=[]
+            
+
+            # if(len(temp.split())>3):
+            #     if temp[:2]=="RT":
+            #         temp=temp1.split(' ', 1)[1]   
+                
+            #     if(len(temp.split())<20):
+            #         temp2=temp2+temp
+            #         if(len(temp2.split())>20):
+                        
+            #             print(temp2+"........\n")              
+            #             catego.append(sample_classify_text(temp2))
+            #             print("#############")
+            #             temp2=""
+                # else:
+                #     clean.append(temp)
+                #     print(temp+"........\n")
+                #     catego.append(sample_classify_text(temp2))
+                #     print("#############")
+        print(catego)
+        newval=[]
+        print(catego_val)
+        for hy in catego_val:
+            temp=float(hy)
+            newval.append(temp)
+        # fig = plt.figure()
+        # ax = fig.add_axes([0,0,1,1])
+       
+        y_pos = np.arange(len(catego))
+        # x_pos= np.arange(len(newval))
+        
+        plt.barh(y_pos, newval)
+        plt.yticks(y_pos, catego)
+        plt.xlabel('Usage')
+        plt.title('Programming language usage')
+        
+        plt.savefig("static/images/plot2.png")
+        return render_template('analy.html',urllll="static/images/plot2.png")
+
+    return render_template('analy.html')
+
+
 
 
 
@@ -411,25 +470,20 @@ def clean_text(text):
     return text
 
 
-def display_image(image):
-  fig = plt.figure(figsize=(20, 15))
-  plt.grid(False)
-  plt.imshow(image)
-
-def download_and_resize_image(url, new_width=256, new_height=256,
-                              display=False):
-  _, filename = tempfile.mkstemp(suffix=".jpg")
-  response = urlopen(url)
-  image_data = response.read()
-  image_data = BytesIO(image_data)
-  pil_image = Image.open(image_data)
-  pil_image = ImageOps.fit(pil_image, (new_width, new_height), Image.ANTIALIAS)
-  pil_image_rgb = pil_image.convert("RGB")
-  pil_image_rgb.save(filename, format="JPEG", quality=90)
-  print("Image downloaded to %s." % filename)
-  if display:
-    display_image(pil_image)
-  return filename
+# def download_and_resize_image(url, new_width=256, new_height=256,
+#                               display=False):
+#   _, filename = tempfile.mkstemp(suffix=".jpg")
+#   response = urlopen(url)
+#   image_data = response.read()
+#   image_data = BytesIO(image_data)
+#   pil_image = Image.open(image_data)
+#   pil_image = ImageOps.fit(pil_image, (new_width, new_height), Image.ANTIALIAS)
+#   pil_image_rgb = pil_image.convert("RGB")
+#   pil_image_rgb.save(filename, format="JPEG", quality=90)
+#   print("Image downloaded to %s." % filename)
+#   if display:
+#     display_image(pil_image)
+#   return filename
 
 # def draw_bounding_box_on_image(image,
 #                                ymin,
@@ -504,7 +558,7 @@ def run_detector(detector, path):
     print("Inference time: ", end_time-start_time)
     objarray = draw_boxes(result["detection_boxes"],
         result["detection_class_entities"], result["detection_scores"])
-    sess.close()
+    
     return objarray
 
 
@@ -514,6 +568,7 @@ def sample_classify_text(text_content):
     client = language_v1.LanguageServiceClient()
 
     type_ = enums.Document.Type.PLAIN_TEXT
+    
 
 
     language = "en"
@@ -524,11 +579,10 @@ def sample_classify_text(text_content):
 
     for category in response.categories:
         cats.append(format(category.name))
-
+        cats.append(format(category.confidence))
         print(u"Category name: {}".format(category.name))
-
         print(u"Confidence: {}".format(category.confidence))
-
+    
     return cats
 
 
@@ -568,7 +622,7 @@ def TweetSearch(tweet):
   auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,
                          CONSUMER_KEY, CONSUMER_SECRET)
   twitter_api = twitter.Twitter(auth=auth)
-  search_result = twitter_api.search.tweets(q=tweet, count='100')
+  search_result = twitter_api.search.tweets(q=tweet, count='10')
   statuses = search_result['statuses']
   for _ in range(5):
       try:
@@ -588,6 +642,11 @@ def TweetSearch(tweet):
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0',port=8080)
+
+
+
+
+    # hutrazapso@enayu.com
 
 
 
