@@ -1,5 +1,7 @@
 Flask
 twitter
+tweepy
+textblob
 google-cloud-storage
 google-cloud-vision
 tensorflow
@@ -13,4 +15,5 @@ langdetect
 google-cloud-language
 firebase-admin
 matplotlib
-gunicorn==19.3.0
+monkeylearn
+uclassify

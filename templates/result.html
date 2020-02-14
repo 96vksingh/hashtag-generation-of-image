@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--
+Template Name: Chillaid
+Author: <a href="https://www.os-templates.com/">OS Templates</a>
+Author URI: https://www.os-templates.com/
+Copyright: OS-Templates.com
+Licence: Free to use under our free template licence terms
+Licence URI: https://www.os-templates.com/template-terms
+-->
+<html lang="">
+<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
+<head>
+<title>Fledge</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<style>
+
+.demo a {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  color: #fff;
+  font : normal 400 20px/1 'Josefin Sans', sans-serif;
+  letter-spacing: .1em;
+  text-decoration: none;
+  transition: opacity .3s;
+}
+.demo a:hover {
+  opacity: .5;
+}
+
+.content {
+  border: 2px solid #999;
+  background-color: #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 400px;
+  display: contents;
+}
+
+.inner {
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+
+#section07 a {
+  padding-top: 80px;
+}
+#section07 a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: sdb07 2s infinite;
+  animation: sdb07 2s infinite;
+  opacity: 0;
+  box-sizing: border-box;
+}
+#section07 a span:nth-of-type(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+#section07 a span:nth-of-type(2) {
+  top: 16px;
+  -webkit-animation-delay: .15s;
+  animation-delay: .15s;
+}
+#section07 a span:nth-of-type(3) {
+  top: 32px;
+  -webkit-animation-delay: .3s;
+  animation-delay: .3s;
+}
+@-webkit-keyframes sdb07 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sdb07 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+    </style>
+<body id="top">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+{% extends "template.html" %}
+    {% block content %}
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<section id="section07" class="demo">
+<div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/lp.jpg');">
+  <div id="pageintro" class="hoc clear">
+    <!-- ################################################################################################ -->
+    <article>
+      <h3 class="heading">Predicted Output</h3>
+      <p></p>
+      <a href="#hh"><span></span><span></span><span></span>Scroll</a>
+    </article>
+
+    
+   
+    <!-- ################################################################################################ -->
+  </div>
+
+
+</div>
+</section>
+
+<!-- ################################################################################################ -->
+<section id="hh">
+<div class="wrapper row3">
+  <main class="hoc container clear">
+    <!-- main body -->
+    <!-- ################################################################################################ -->
+    <div class="content">
+      <!-- ################################################################################################ -->
+      <div id="gallery">
+        <figure>
+
+            {% for names in name %}         
+          
+       
+          <header class="heading">The Uploades Images are as follows</header>
+          <ul class="nospace clear">
+            <li class="one_third first"><a href="{{name[0]}}"><img src="{{name[0]}}" alt=""></a></li>
+            <li class="one_third"><a href="{{name[1]}}"><img src="{{name[1]}}" alt=""></a></li>
+            <li class="one_third"><a href="{{name[2]}}"><img src="{{name[2]}}" alt=""></a></li>
+          </ul>
+
+          {% endfor %}
+
+
+
+          
+          <br><br><br>
+
+
+          {% if user == "o_iden" %}
+          <form method="post" action="/res" enctype="multipart/form-data">
+
+            {% for p in f %}
+
+            {% if p == f[0] %}
+
+          <label class="one_third first">
+  {{p}}
+  <input class="one_third first" name="obs" type="checkbox" value="{{ p }}"/>
+</label>
+{% else %}
+
+<label class="one_third">
+ {{p}}
+  <input class="one_third" name="obs" type="checkbox" value="{{ p }}"/>
+</label>
+{% endif %}
+
+
+{% if p == f[-1] %}
+
+<br>
+<br>
+<br>
+<br>
+<button type="submit" value="submit" style="width:200px">Generate</button>
+ {% endif %}
+
+ {% endfor %}
+
+ {% endif %}
+         </form>
+
+         </figure>
+      </div>
+     
+      <!-- ################################################################################################ -->
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+
+</section>
+    
+{% if user == "normal" %}
+<div class="wrapper coloured">
+
+    <section id="ctdetails" class="hoc container clear">
+      <!-- ################################################################################################ -->
+      <div class="sectiontitle">
+       <h1 style="font-size:40px;"><u><strong>Suggested</strong> Hashtags</u></h1>
+                             
+                                  <p style="color:black;font-size:20px;">
+                                      Following hashtag may be appropriate for the uploaded images!
+                                  </p>
+                                 
+       
+      </div>
+
+
+      <div class="content">
+        <div class="inner">
+      <footer id="footer" class="hoc clear">
+
+<h3>
+    {% for p in f %}         
+            
+    {% for h in p %}
+    <div class="one_quarter first">
+ 
+        <ul class="nospace linklist">
+    
+          <li>{{ "#"+h }}</li>
+        </ul>
+      </div>
+        
+        
+    {% endfor %}
+          
+
+{% endfor %}
+
+    </h3>
+
+</div>
+        </div>
+</footer>
+</div>
+        {% endif %}
+
+
+
+
+
+
+
+
+
+
+   
+
+   
+   
+   
+
+
+
+
+
+        
+
+
+        {% if user == "commercial" %}
+
+
+        <div class="wrapper coloured">
+
+            <section id="ctdetails" class="hoc container clear">
+              <!-- ################################################################################################ -->
+              <div class="sectiontitle">
+               <h1 style="font-size:40px;"><u><strong>Suggested</strong> Hashtags</u></h1>
+                                     
+                                          <p style="color:black;font-size:20px;">
+                                              Following hashtag may be appropriate for the uploaded images!
+                                          </p>
+                                         
+               
+              </div>
+
+
+              <div class="content">
+                <div class="inner">
+              <footer id="footer" class="hoc clear">
+   
+        <h3>
+    {% for y in hashes %}
+                     
+                {% for b in y %}
+
+                         
+  <div class="one_quarter first">
+     
+    <ul class="nospace linklist">
+
+      <li>{{ "#"+b }}</li>
+    </ul>
+  </div>
+                        
+                    
+                {% endfor %}
+                      
+        
+        {% endfor %}
+        </h3>
+        <h3>
+
+        {% for p in data %}
+    
+                {% for h in p %}
+                   
+                <div class="one_quarter first">
+     
+                    <ul class="nospace linklist">
+                
+                      <li>{{ "#"+h }}</li>
+                    </ul>
+                  </div>
+                    
+                {% endfor %}
+                      
+        
+        {% endfor %}
+
+        </h3>
+
+   
+    </footer>
+</div>
+</div>
+    </section>
+        </div>
+        {% endif %}
+   
+    <!-- ################################################################################################ -->
+ 
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
+  <footer id="footer" class="hoc clear">
+    <!-- ################################################################################################ -->
+    <div class="one_third first">
+      <h1 class="logoname"><a href="index.html">Fledge</h1>
+      <p>It aims to automate hashtag generation for any potential twitter handle and provide them with appropriate hashtags, eliminating the need to contemplate about inputting tags every time they Tweet.</p>
+       <a href="#"></a></p>
+      <ul class="faico clear">
+        <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
+        <li><a class="faicon-google-plus" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+        <li><a class="faicon-linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
+        <li><a class="faicon-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+        <li><a class="faicon-vk" href="#"><i class="fab fa-vk"></i></a></li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Site Links</h6>
+      <ul class="nospace linklist">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('text') }}">Text Categorization</a></li>
+        <li><a href="{{ url_for('tag') }}">Hashtag Generation</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Have a Question ?</h6>
+          <ul class="nospace linklist">
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.Fledge.com</span></a></li>
+                </ul>
+    </div>
+    <!-- ################################################################################################ -->
+  </footer>
+</div>
+<!-- JAVASCRIPTS -->
+<script src="static/layout/scripts/jquery.min.js"></script>
+<script src="static/layout/scripts/jquery.backtotop.js"></script>
+<script src="static/layout/scripts/jquery.mobilemenu.js"></script>
+<!-- Homepage specific -->
+<script src="static/layout/scripts/jquery.easypiechart.min.js"></script>
+<!-- <script src="{{ url_for('static',filename='ii.js') }}"></script> -->
+<!-- / Homepage specific -->
+{% endblock %}
+</body>
+</html>

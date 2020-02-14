@@ -13,6 +13,89 @@ Licence URI: https://www.os-templates.com/template-terms
 <title>Fledge</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+
+.demo a {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  color: #fff;
+  font : normal 400 20px/1 'Josefin Sans', sans-serif;
+  letter-spacing: .1em;
+  text-decoration: none;
+  transition: opacity .3s;
+}
+.demo a:hover {
+  opacity: .5;
+}
+
+
+
+#section07 a {
+  padding-top: 80px;
+}
+#section07 a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: sdb07 2s infinite;
+  animation: sdb07 2s infinite;
+  opacity: 0;
+  box-sizing: border-box;
+}
+#section07 a span:nth-of-type(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+#section07 a span:nth-of-type(2) {
+  top: 16px;
+  -webkit-animation-delay: .15s;
+  animation-delay: .15s;
+}
+#section07 a span:nth-of-type(3) {
+  top: 32px;
+  -webkit-animation-delay: .3s;
+  animation-delay: .3s;
+}
+@-webkit-keyframes sdb07 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sdb07 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+
+
+
+</style>
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -23,39 +106,181 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
+<section id="section07" class="demo">
 <div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/t7.png');">
-  <div id="pageintro" class="hoc clear"> 
+  <div id="pageintro" class="hoc clear">
     <!-- ################################################################################################ -->
     <article>
-      <h3 class="heading">Text Classification</h3>
+      <h3 class="heading">  Text Classification</h3>
       <p></p>
-      
+      <a href="#ctdetails"><span></span><span></span><span></span>Scroll</a>
     </article>
     <!-- ################################################################################################ -->
+    
   </div>
 </div>
 
+</section>
+
 <!-- ################################################################################################ -->
 <div class="wrapper row2">
-  <section id="ctdetails" class="hoc container clear"> 
+  <section id="ctdetails" class="hoc container clear">
     <!-- ################################################################################################ -->
-    <div class="sectiontitle">
+    
+    
+    
+
+            <div class="sectiontitle">
+              <h1><strong>Tweets</strong> Analysis</h1>
+                                     
+                                          <p>
+                                              Search for your favorite topic in twitter, using <strong>Sentiment</strong> filter!
+                                          </p>
+                                          <br><br><br>
+                <h3>What tweets you want to see!</h3>
+                                              <p>Use the sentiment and factual filters below </p>
+              </div>
+
+              <!-- <div class="row">
+                  <div class="col-sm-10 col-sm-offset-1 text">
+                      <h1><strong>Tweets</strong> Analysis</h1>
+                      <div class="description">
+                        <p>
+                          Search for your favorite topic in twitter, using <strong>Sentiment</strong> filter!
+                        </p>
+                      </div>
+                  </div>
+              </div> -->
+  
+                    
+              <br><br><br><br><br><br><br><br><br>
+   
+              <section id="introblocks">
+                    <form role="form" id="form" class="login-form">
+                      <div class="form-group">
+                        <label class="sr-only" for="form-username">Username</label>
+                          <input type="text" name="tweet_search" placeholder="What do you want to search about.." class="form-username form-control" id="form-username">
+                        </div>
+
+
+                        <ul class="nospace group btmspace-80 elements elements-four">
+                          <li class="one_quarter">
+                              <div class="row search_tweets">
+                                           
+                                                 <button id="search_btn" class="btn">Search Tweets</button>
+                                      
+                                  </div>
+                          </li>
+
+
+
+
+                          <li class="one_quarter">
+                              <div class="row reset_filter">
+                                           
+                                                 <button data-toggle="tooltip" data-placement="top" title="Show all Tweets"  class="btn">Reset Filters</button>
+                                           
+                                  </div>
+                          </li>
+
+                          <li class="one_quarter">
+                                           
+                            <button data-toggle="tooltip" data-placement="left" title="Tweets which are Opinion"  id="opi" class="btn">Opinion Tweet</button>
+    
+      </li>
+
+
+      <li class="one_quarter">
+                       
+                              <button  data-toggle="tooltip" data-placement="left" title="Factual Tweets"  id="fac" class="btn">Factual Tweet</button>
+                      
+      </li>
+
+
+                        </ul>
+                        </section>
+
+                        <br><br><br><br>
+   
+      <section id="introblocks">
+
+
+
+
+    
+                        <ul class="nospace group btmspace-80 elements elements-four">
+                      
+                          <li class="one_quarter">
+                                       
+                                                <button  data-toggle="tooltip" data-placement="left" title="Show only Positive Tweets" class="btn" id="psenti">Positive Tweets</button>
+                                           
+                          </li>
+
+
+                          <li class="one_quarter">
+                                         
+                                                  <button  data-toggle="tooltip" data-placement="left" title="Show only Negative Tweets"  class="btn" id="nsenti">Negative Tweets</button>
+                          
+                          </li>
+                                      
+                              
+
+
+    
+                              
+                         
+
+
+                          <li class="one_quarter">
+                     
+                            <button id="img1" data-toggle="tooltip" data-placement="left" class="btn" style="width:200px">Sentiment Graph</button>
+
+                          </li>
+                          <li class="one_quarter">
+                           
+                              <button id="img2" class="btn" style="width:200px">Tweets Classification</button>
+                    
+                          </li>
+                                      
+                            
+                        </ul>
+      </section>
+    
+                    </form>
       
-    </div>
+           
     
+           
     
+              <div id="search_result">
+                  <ol id="search_list">
+    
+                  </ol>
+
+                  
+              </div>
+
+
+   
+   
+   
+   
+   
     <!-- ################################################################################################ -->
   </section>
 </div>
 
+
+
+
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
-  <footer id="footer" class="hoc clear"> 
+  <footer id="footer" class="hoc clear">
     <!-- ################################################################################################ -->
     <div class="one_third first">
       <h1 class="logoname"><a href="index.html">Fledge</h1>
-      <p>It aims to automate hashtag generation for any potential twitter handle and provide them with appropriate hashtags, eliminating the need to contemplate about inputting tags every time they Tweet.</p> 
+      <p>It aims to automate hashtag generation for any potential twitter handle and provide them with appropriate hashtags, eliminating the need to contemplate about inputting tags every time they Tweet.</p>
        <a href="#"></a></p>
       <ul class="faico clear">
         <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
@@ -91,7 +316,61 @@ Licence URI: https://www.os-templates.com/template-terms
 <script src="static/layout/scripts/jquery.mobilemenu.js"></script>
 <!-- Homepage specific -->
 <script src="static/layout/scripts/jquery.easypiechart.min.js"></script>
+<script src="{{ url_for('static',filename='index.js') }}"></script>
 <!-- / Homepage specific -->
 {% endblock %}
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
