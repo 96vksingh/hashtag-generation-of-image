@@ -32,7 +32,7 @@ from firebase_admin import credentials, firestore, initialize_app
 from monkeylearn import MonkeyLearn
 from operator import itemgetter 
 from uclassify import uclassify
-
+from google.cloud import firestore
 
 
 
@@ -45,7 +45,7 @@ global i
 # os.system("python3 twitt.py &")
 
 current_milli_time = lambda: int(round(time.time() * 1000))
-ml = MonkeyLearn("9db9fbaa478510f803a7c1b7be11470c931d0f72")
+ml = MonkeyLearn("d3380df585fa254763c9590ce7ece2e076423720")
 model_id="cl_o46qggZq"
 i=0
 tf.compat.v1.enable_eager_execution()
@@ -73,7 +73,9 @@ api = tweepy.API(auth)
 
 cred = credentials.Certificate('key2.json')
 default_app = initialize_app(cred)
-hashes = firestore.client().collection('fledge_used')
+hashes = firestore.Client().collection('fledge_used')
+
+ussssse = firestore.Client().collection('users')
 mydata = hashes.document()
 
 app.secret_key = "secret key"
@@ -86,6 +88,8 @@ storage_client = storage.Client()
 bucket_name = "projectimages_christ"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 graphs_url=[]
+db = firestore.Client()
+docs = db.collection(u'users').stream()
 
 
 #####################################################
@@ -231,7 +235,62 @@ def indexi():
     return render_template('tw_analysis.html')
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Output message if something goes wrong...
+    msg = ''
+    # Check if "username" and "password" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        username = request.form['username']
+        password = request.form['password']
+        for doc in docs:
+            temp=doc.to_dict()
+            for somedata in temp:
+                if temp['username']==username:
+                    if temp['password']==password:
+                        session['loggedin'] = True
+                        session['id'] = account['id']
+                        session['username'] = account['username']
+                        return render_template('home.html')
+                    else:
+                        msg = 'Incorrect username/password!'
+           
+    return render_template('login.html',msg=msg)
 
+
+
+
+@app.route('/signup',methods=['GET', 'POST'])
+def signup():
+    msg = ''
+    print("up came or not")
+    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+    if request.method=="post":
+        # Create variables for easy access
+        username = request.form['username']
+        password = request.form['password']
+        cpassword = request.form['confirm-password']
+        mobile = request.form['mobile']
+        country = request.form['country']
+        print("i came or not")
+        for doc in docs:
+            temp=doc.to_dict()
+            for somedata in temp:
+                if temp['username']==username:
+                    msg = 'Account already exists!'
+                else:
+                    data = {
+                        u'username': username,
+                        u'password': password,
+                        u'mobile': mobile,
+                        u'country':country
+                        }
+                    ussssse.set(data)
+                    msg = 'You have successfully registered!'
+                    return redirect(url_for('login'))
+                  
+    return render_template('signup.html',msg=msg)
 
 
 @app.route("/img1",methods=["POST"])

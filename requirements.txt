@@ -13,6 +13,7 @@ six
 Werkzeug
 langdetect
 google-cloud-language
+google-cloud-firestore
 firebase-admin
 matplotlib
 monkeylearn

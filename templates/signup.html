@@ -1,0 +1,352 @@
+{% extends "template.html" %}
+        {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+<style>
+  
+input[type=text], input[type=password],input[type=email],input[type=tel],select {
+  width: 70%;
+  height: 30px;
+  padding: 2px 20px;
+  margin: 2px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  
+}
+
+.container1 { 
+  position: absolute;
+  top:10%;
+  left:33%;
+  padding: 20px;
+  width: 500px;
+  background-color:white;
+  color:black;
+  opacity: 0.9;
+  filter: alpha(opacity=60);
+}
+
+.box {     
+  position: absolute;
+  background-color:black;
+  color:green;
+  opacity: 0.8;
+  filter: alpha(opacity=60);
+}
+     
+img.avatar {
+  width: 25%;
+  border-radius: 50%;
+}
+
+button {
+  background-color: hrgb(8,76,102);
+  color: white;
+  padding: 2px 20px;
+  margin: 2px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  height: 40px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+body {
+ 
+}
+
+.bg-image {
+  /* The image used */
+ opacity: 0.5;
+  filter: alpha(opacity=60);
+
+  /* Full height */
+  height: 100%;
+  width:100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#signup-step {
+    margin:auto;
+    padding:0;
+    width:53%
+}
+
+#signup-step li {
+    list-style:none;
+    float:left;
+    padding:5px 10px;
+    border-top:#004C9C 1px solid;
+    border-left:#004C9C 1px solid;
+    border-right:#004C9C 1px solid;
+    border-radius:5px 5px 0 0;
+}
+
+.active {
+    color:#FFF;
+}
+
+#signup-step li.active {
+    background-color:rgb(8,76,102);
+}
+
+#signup-form {
+      position: absolute;
+      top:15%;
+      left:33%;
+      padding: 20px;
+      width: 600px;
+      background-color:white;
+      color:black;
+      opacity: 0.8;
+  filter: alpha(opacity=60);
+}
+
+.demoInputBox {
+    padding: 10px;
+    border: #CDCDCD 1px solid;
+    border-radius: 4px;
+    background-color: #FFF;
+    width: 50%;
+}
+
+.signup-error {
+    color:#FF0000;
+    padding-left:15px;
+}
+
+.message {
+    color: black;
+    font-weight: bold;
+    width: 100%;
+    padding: 10;
+}
+
+.btnAction {
+        background-color: rgb(8,76,102);
+  color: white;
+  padding: 2px 20px;
+  margin: 2px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  height: 40px;
+    }
+    
+    .btnAction:hover {
+  opacity: 0.8;
+}
+
+input[type=text].form-control.valid + label:after,
+input[type=text].form-control:focus.valid + label:after,
+input[type=text].form-control.invalid + label:after,
+input[type=text].form-control:focus.invalid + label:after,
+input[type=password].form-control.valid + label:after,
+input[type=password].form-control:focus.valid + label:after,
+input[type=password].form-control.invalid + label:after,
+    
+   
+</style>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        function validate() {
+                var output = true;
+                var regularExpression =  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
+                $(".signup-error").html('');
+
+                if ($("#personal-field").css('display') != 'none') {
+                    if (!($("#username").val())) {
+                        output = false;
+                        $("#name-error").html("Username required!");
+                    }
+                    else if ( ($("#username").val().length) < 6 || ($("#username").val().length) > 18){
+                        output = false;
+                        $("#name-error").html("Username length is between 6 and 18!");  
+                    }
+                    
+                    /*if (regularExpression.test(username)) {
+                        output = false;
+                        $("#name-error").html("Username required!");
+                        }*/
+                    }
+
+                if ($("#password-field").css('display') != 'none') {
+                    if (!($("#password").val())) {
+                        output = false;
+                        $("#password-error").html("Password required!");
+                    }
+                    else if ( ($("#password").val().length) < 8 || ($("#password").val().length) > 15){
+                        output = false;
+                        $("#password-error").html("Password length is between 8 and 15!");  
+                    }
+                    
+
+                    if (!($("#confirm-password").val())) {
+                        output = false;
+                        $("#confirm-password-error").html("Confirm password required!");
+                    }
+
+                    if ($("#password").val() != $("#confirm-password").val()) {
+                        output = false;
+                        $("#confirm-password-error").html("Password not matched!");
+                    }
+                }
+
+                if ($("#contact-field").css('display') != 'none') {
+                    if (!($("#mobile").val())) {
+                        output = false;
+                        $("#phone-error").html("Mobile Number required!");
+                        
+                    }
+                    
+                    else if ( ($("#mobile").val().length) != 10) {
+                        output = false;
+                        $("#phone-error").html("Mobile Number is of 10 digits!");
+                    }
+                   
+                    if (!($("#district").val())) {
+                        output = false;
+                        $("#district-error").html("Enter your District!");
+                    }
+
+                    if (!($("#pincode").val())) {
+                        output = false;
+                        $("#pincode-error").html("Pincode required!");
+                    }
+                    else if ( ($("#pincode").val().length) != 6) {
+                        output = false;
+                        $("#pincode-error").html("Pincode is of 6 digits!");
+                    }
+                }
+
+                return output;
+            }
+
+            $(document).ready(function () {
+                $("input#submit").click(function (e) {
+                    var output = validate();
+                    var current = $(".active");
+
+                    if (output === true) {
+                        return true;
+                    } else {
+                        //prevent refresh
+                        e.preventDefault();
+                        $("#" + current.attr("id") + "-field").show();
+                        $("#submit").show();
+                    }
+                });
+            });
+            
+            $(document).ready(function () {
+              $("#mobile").keypress(function (e) {
+                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#phone-error1").html("Digits Only").show().fadeOut("slow");
+                       return false;
+                }
+               });
+            });
+    </script>
+
+</head>
+<body>
+
+
+<div class=box>
+    <!-- End Navigation -->
+   <div class="bg-image"> <img src="{{ url_for('static', filename='bg1.jpg')}}" wwidth=100% height=100%></div>
+   
+   
+<div class="container1" >
+  <center><h1>Signup</h1><br>
+        {% if msg %}
+            <p style="color:red">{{ msg }}</p>
+        {% endif %}
+        <form action="/signup" method="post" >
+            <table cellpadding="5">
+                <col width="30%">
+                          <col width="70%">
+                <tr>
+                    <div id="personal-field">
+                    <td><label for="username">Username  &nbsp  &nbsp
+                    </label></td>  
+                    <td><input type="text"  name="username" placeholder="Username"  id="username" class="demoInputBox" ><br>    
+                    <span id="name-error" class="signup-error"></span>
+                    <span id="name-error" class="signup-error"></span>
+                    </td>
+                    </div>
+                </tr>
+                <div id="password-field">
+                <tr>
+                    <td>
+                    <label for="password">Password</label></td>
+                        <td>
+                        <input type="password"  name="password" placeholder="Password"  id="password" class="form-control validate">
+                        <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <br>                       
+                    <span id="password-error" class="signup-error"></span>
+                    </td>        
+                </tr>
+                <tr>
+                    
+                    <td><label for="cpassword">Confirm Password
+                    </label></td>
+                    <td><input type="password"  name="confirm-password" placeholder="Confirm Password" id="confirm-password" class="demoInputBox">
+                    <br><span id="confirm-password-error" class="signup-error"></span>
+                    </td>
+                </tr>
+                </div>
+                <tr>
+                    <div id="contact-field">
+                    <td><label for="mobile">Mobile Number</label></td>
+                    <td><input type="text" name="mobile" placeholder="Mobile Number" id="mobile" class="demoInputBox" ><br>
+                    <span id="phone-error1" class="signup-error"></span>
+                    <span id="phone-error" class="signup-error"></span>
+                    </td>
+                    </div>
+                </tr>
+                <tr>
+                    <td><label for="state">Country</label></td>
+                    <td><select name="state">                    
+                        <option value="" selected disabled>Select Country</option>
+                        <option>India</option>
+                        <option>Pakistan</option>
+                        <option>Kazakasthan</option>
+                    </select>                 
+                    </td>
+                </tr>
+            </table>
+        <br>
+    <input class="btnAction" type="submit" name="submit" id="submit" value="Signup"> &nbsp &nbsp
+    <a href="/login"> <b>Existing User? Login. </b></a>
+    </form></center>
+  </div>
+</div>
+<script>
+$('.toggle-password').on('click', function() {
+  $(this).toggleClass('fa-eye fa-eye-slash');
+  let input = $($(this).attr('toggle'));
+  if (input.attr('type') == 'password') {
+    input.attr('type', 'text');
+  }
+  else {
+    input.attr('type', 'password');
+  }
+});
+
+</script>
+{% endblock %}
+</body>
+
+</html>

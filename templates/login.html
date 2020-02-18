@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="">
+<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
+<head>
+<title>Fledge</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+  <style>
+  input[type=text], input[type=password],input[type=email],input[type=tel] ,select {
+  width: 70%;
+  height: 40px;
+  padding: 2px 20px;
+  margin: 2px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+      .container1{
+  
+      position: absolute;
+      top:25%;
+      left:36%;
+      padding: 20px;
+      width: 350px;
+      background-color:white; 
+      color:black;
+      opacity: 0.9;
+  filter: alpha(opacity=60);
+      }
+      .box{
+     
+      position: absolute;
+      width:100%;
+      height:100%;
+       background-color:black; 
+      color:green;
+          opacity: 0.8;
+  filter: alpha(opacity=60);
+      }
+      
+      img.avatar {
+  width: 25%;
+  border-radius: 50%;
+}
+button {
+  background-color: #b0b435;
+  color: white;
+  padding: 2px 20px;
+  margin: 2px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  height: 40px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+body {
+  
+}
+
+.bg-image {
+  /* The image used */
+ opacity: 0.5;
+  filter: alpha(opacity=60);
+
+
+
+  /* Full height */
+  height: 80%;
+  width:100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  </style>
+  <div class=box>
+   
+</head>
+  <body id="top">
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    {% extends "template.html" %}
+        {% block content %}
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    
+    <div class="bg-image"> <img src="{{ url_for('static', filename='bg1.jpg')}}" width=100% height=100%></div>
+    <div class="container1" >
+    <center>  <h1>Login</h1>
+      
+      <form action="{{url_for('login')}}" method="post">
+      <img src="{{ url_for('static', filename='avatar.jpg')}}" alt="Avatar" class="avatar" >
+       <br><br> <label for="username">
+					<i class="fas fa-user"></i> Username
+		</label>
+        <input type="text" placeholder="Username" name="username" id="username" required>
+          <br><br>
+          <label for="password">
+					<i class="fas fa-lock"></i> Password
+		  </label>
+         <input type="password" placeholder="Password" name="password" id="password" required>
+          <br><br>
+          <div class="msg">{{ msg }}</div>
+        <button class="btn btn-default" type="submit" value="Login">Login</button>
+		&nbsp &nbsp<a href="/signup">Sign Up Now</a>
+      </form></center>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
