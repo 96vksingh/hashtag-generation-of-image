@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template,flash,redirect
+from flask import Flask, request, jsonify, render_template,flash,redirect,session,url_for
 import twitter
 import tweepy
 from numpy  import array
@@ -41,6 +41,16 @@ from google.cloud import firestore
 import time
 # tf.executing_eagerly()
 global i
+# from firebase import Firebase
+# config = {
+#    "apiKey": "AIzaSyD-75D9XGgW_kXOKaHIYDKcr7AzBALs61o",
+#     "authDomain": "fluent-sprite-261715.firebaseapp.com",
+#     "databaseURL": "https://fluent-sprite-261715.firebaseio.com",
+#     "projectId": "fluent-sprite-261715",
+#     "storageBucket": "fluent-sprite-261715.appspot.com",
+#     "messagingSenderId": "258032626033",
+#     "appId": "1:258032626033:web:14b417ccc6a52e6afe2ed0"
+#   }
 
 # os.system("python3 twitt.py &")
 
@@ -51,6 +61,10 @@ i=0
 tf.compat.v1.enable_eager_execution()
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
+# firebase = Firebase(config)
+# auth = firebase.auth()
+# db = firebase.database()
 
 allt=[]
 fff=[]
@@ -70,7 +84,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=r"key.json"
 cred = credentials.Certificate('key2.json')
 default_app = initialize_app(cred)
 hashes = firestore.Client().collection('fledge_used')
@@ -82,7 +96,7 @@ app.secret_key = "secret key"
 
 gt="submit"
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=r"key.json"
+
 client = vision.ImageAnnotatorClient()
 storage_client = storage.Client()
 bucket_name = "projectimages_christ"
@@ -242,53 +256,74 @@ def login():
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # Create variables for easy access
+        print("did i come over here")
         username = request.form['username']
         password = request.form['password']
         for doc in docs:
             temp=doc.to_dict()
-            for somedata in temp:
-                if temp['username']==username:
-                    if temp['password']==password:
-                        session['loggedin'] = True
-                        session['id'] = account['id']
-                        session['username'] = account['username']
-                        return render_template('home.html')
-                    else:
-                        msg = 'Incorrect username/password!'
+            print("oh here!")
+        
+            if temp['username']==username:
+                if temp['password']==password:
+                    session['loggedin'] = True
+                    session['id'] = doc.id
+                    session['username'] = temp['username']
+                    return render_template('home.html')
+                else:
+                    msg = 'Incorrect username/password!'
            
     return render_template('login.html',msg=msg)
 
 
+@app.route('/logout')
+def log():
+    session.pop('loggedin',None)
+    session.pop('id',None)
+    session.pop('username',None)
+    return redirect(url_for('index'))
 
+@app.route('/feat')
+def feat():
+    session.pop('loggedin',None)
+    session.pop('id',None)
+    session.pop('username',None)
+    return redirect(url_for('index'))
 
 @app.route('/signup',methods=['GET', 'POST'])
 def signup():
     msg = ''
     print("up came or not")
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method=="post":
+    if request.method=='POST':
         # Create variables for easy access
         username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         cpassword = request.form['confirm-password']
         mobile = request.form['mobile']
         country = request.form['country']
         print("i came or not")
         for doc in docs:
+            # ussers = list(map(itemgetter('username'), docs))
             temp=doc.to_dict()
-            for somedata in temp:
-                if temp['username']==username:
-                    msg = 'Account already exists!'
-                else:
-                    data = {
-                        u'username': username,
-                        u'password': password,
-                        u'mobile': mobile,
-                        u'country':country
-                        }
-                    ussssse.set(data)
-                    msg = 'You have successfully registered!'
-                    return redirect(url_for('login'))
+            print(temp)
+            # print(ussers)         
+            if temp['username']==username:
+                msg = 'Account already exists!'
+            else:
+                msg = 'You have successfully registered!'
+                data = {
+                    u'username': username,
+                    u'email': email,
+                    u'password': password,
+                    u'bussiness': false,
+                    u'mobile': mobile,
+                    u'country':country
+                    }
+        # auth.create_user_with_email_and_password(email, password)
+        # sigde=db.child("users").set(data)
+        ussssse.add(data)
+        return render_template('login.html')
                   
     return render_template('signup.html',msg=msg)
 
@@ -608,7 +643,7 @@ def draw_boxes(boxes, class_names, scores, max_boxes=10, min_score=0.1):
     print(objs) 
     return objs
 
-module_handle = "https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1"
+module_handle = "https://tfhub.dev/google/faster_rcnn/openimages_v4/inception_resnet_v2/1"
 detector = hub.load(module_handle).signatures['default']
 
 def load_img(path):
