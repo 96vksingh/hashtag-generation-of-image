@@ -275,6 +275,25 @@ def login():
     return render_template('login.html',msg=msg)
 
 
+@app.route('/pre',methods=['GET', 'POST'])
+def payment():
+    
+    if request.headers['Content-Type'] == 'text/html':
+        print(request.data)
+        return render_template("login.html")
+    # if request.method=="post":
+    #     print("or here")
+    #     mhhh=request.data
+    #     print(mhhh)
+    #     re
+    #     return redirect(url_for('log'))
+    # if request.method=="get":
+    #     print("oooor here")
+    #     mhhh=request.data
+    #     print(mhhh)
+    #     return redirect(url_for('log'))
+    return redirect(url_for('log'))
+    
 @app.route('/logout')
 def log():
     session.pop('loggedin',None)
