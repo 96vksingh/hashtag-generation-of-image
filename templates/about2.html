@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+Template Name: Chillaid
+Author: <a href="https://www.os-templates.com/">OS Templates</a>
+Author URI: https://www.os-templates.com/
+Copyright: OS-Templates.com
+Licence: Free to use under our free template licence terms
+Licence URI: https://www.os-templates.com/template-terms
+-->
+<html lang="">
+<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
+<head>
+<title>Fledge</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body id="top">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+{% extends "tempi.html" %}
+    {% block content %}
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay" style="background-image:url('static/images/demo/backgrounds/p5.png');">
+  <div id="pageintro" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <article>
+      <h3 class="heading">About</h3>
+      <p>Fledge aims to automate hashtag generation for any potential twitter handle, eliminating the need to contemplate about inputting tags every time they Tweet. It aims to classify raw text data into five categories.
+      </p>
+      
+    </article>
+    <!-- ################################################################################################ -->
+  </div>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+
+
+
+<!-- ################################################################################################ -->
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay light" style="background-image:url('static/images/demo/backgrounds/lp.jpg');">
+  <section id="services" class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+    <div class="sectiontitle">
+      <h6 class="heading font-x2">Product Features</h6>
+    </div>
+    <ul class="nospace group elements elements-three">
+      <li class="one_third">
+        <article><a href="#"><i class="fas fa-hashtag"></i></a>
+          <h6 class="heading">	Generate hashtags serving general purpose </h6>
+          <p>Assists users to use a set of hashtags by processing their images.</p>
+        </article>
+      </li>
+       </li>
+      <li class="one_third">
+        <article><a href="#"><i class="fas fa-list-alt"></i></a>
+          <h6 class="heading">Text categorization</h6>
+          <p>Classifies text into five main categories : sports, business, education, entertainment and technology.</p>
+          </article>
+      </li>
+      <li class="one_third">
+        <article><a href="#"><i class="fas fa-hashtag"></i></a>
+          <h6 class="heading">Generate hashtags serving commercial purpose </h6>
+          <p>Solution for social media business users to generate trending and relevant hashtags.</p>
+          </article>
+
+    </ul>
+    <!-- ################################################################################################ -->
+  </section>
+</div>
+
+<!-- ################################################################################################ -->
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <section class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+    <div class="sectiontitle">
+      
+      <h6 class="heading font-x2">Work Flow</h6>
+    </div>
+    <ul id="latest" class="nospace group">
+      <li class="one_third first">
+        <article><img src="static/images/demo/d1.png" alt="">
+          <ul class="nospace meta clear">
+            <li>Hashtag Generation : General Usage</li>
+          </ul>
+          
+        </article>
+      </li>
+      <li class="one_third">
+        <article><img src="static/images/demo/d2.png" alt="">
+          <ul class="meta clear">
+            <li>Hashtag Generation : Commercial Usage</li>
+            
+          </ul>
+          
+        </article>
+      </li>
+      <li class="one_third">
+        <article><img src="static/images/demo/d3.png" alt="" ></a>
+          <ul class="nospace meta clear">
+            <li>Text Classification and Categorization</li>
+           
+          </ul>
+          
+        </article>
+      </li>
+    </ul>
+    <!-- ################################################################################################ -->
+  </section>
+</div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="bgded overlay row4" style="background-image:url('images/demo/backgrounds/lp.jpg');">
+  <footer id="footer" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <div class="one_third first">
+      <h1 class="logoname"><a href="index.html">Fledge</h1>
+      <p>It aims to automate hashtag generation for any potential twitter handle and provide them with appropriate hashtags, eliminating the need to contemplate about inputting tags every time they Tweet.</p> 
+       <a href="#"></a></p>
+      <ul class="faico clear">
+        <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
+        <li><a class="faicon-google-plus" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+        <li><a class="faicon-linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
+        <li><a class="faicon-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+        <li><a class="faicon-vk" href="#"><i class="fab fa-vk"></i></a></li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Site Links</h6>
+      <ul class="nospace linklist">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('text') }}">Text Categorization</a></li>
+        <li><a href="{{ url_for('tag') }}">Hashtag Generation</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+      </ul>
+    </div>
+    <div class="one_third">
+      <h6 class="heading">Have a Question ?</h6>
+          <ul class="nospace linklist">
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info.Fledge.com</span></a></li>
+                </ul>
+    </div>
+    <!-- ################################################################################################ -->
+  </footer>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="static/layout/scripts/jquery.min.js"></script>
+<script src="static/layout/scripts/jquery.backtotop.js"></script>
+<script src="static/layout/scripts/jquery.mobilemenu.js"></script>
+<!-- Homepage specific -->
+<script src="static/layout/scripts/jquery.easypiechart.min.js"></script>
+<!-- / Homepage specific -->
+{% endblock %}
+</body>
+</html>

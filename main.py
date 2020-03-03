@@ -198,7 +198,10 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    if session:
+        return render_template('about.html')
+    else:
+        return render_template('about.html')
 
 @app.route('/tag')
 def tag():
@@ -216,7 +219,11 @@ def text():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    if session:
+        return render_template('contact2.html')
+    else:
+        return render_template('contact.html')
+
 
 @app.route('/res')
 def upload_form():
@@ -234,9 +241,14 @@ def login():
         print("did i come over here")
         username = request.form['username']
         password = request.form['password']
-        for doc in docs:
+        temp=[]
+        temp.clear()
+        db = firestore.Client()
+        docss = db.collection(u'users').stream()
+        for doc in docss:
             temp=doc.to_dict()
             print("oh here!")
+            print(temp)
         
             if temp['username']==username:
                 if temp['password']==password:
@@ -245,10 +257,8 @@ def login():
                     session['username'] = temp['username']
                     return render_template('home.html')
                 else:
-                    msg = 'Incorrect username/password!'
-           
+                    msg = 'Incorrect username/password!'           
     return render_template('login.html',msg=msg)
-
 
 @app.route('/pre',methods=['GET', 'POST'])
 def payment():
@@ -263,7 +273,7 @@ def log():
     session.pop('loggedin',None)
     session.pop('id',None)
     session.pop('username',None)
-    return redirect(url_for('index'))
+    return render_template('index.html')
 
 @app.route('/feat')
 def feat():
@@ -275,7 +285,6 @@ def feat():
 @app.route('/signup',methods=['GET', 'POST'])
 def signup():
     msg = ''
-    print("up came or not")
     if request.method=='POST':
         username = request.form['username']
         email = request.form['email']
@@ -283,12 +292,9 @@ def signup():
         cpassword = request.form['confirm-password']
         mobile = request.form['mobile']
         country = request.form['country']
-        print("i came or not")
         flag=0
         for doc in docs:
             temp=doc.to_dict()
-            print(temp)
-                    
             if temp['username']==username:
                 msg = 'Account already exists!'
                 flag=1
@@ -303,39 +309,30 @@ def signup():
                     u'mobile': mobile,
                     u'country':country
                     }
-                flag=0
-                
+                flag=0               
         if flag==0:
             ussssse.add(data)
         return render_template('login.html',msg=msg)
-                  
+                 
     return render_template('signup.html',msg=msg)
 
 
 @app.route("/img1",methods=["POST"])
 def searchimg1():
     search_tweet = request.form.get("search_query")
-    # t = [[]]
-    print("i tried coming")
     t = []
     t.clear()
     hh=sentiment_twitter(search_tweet)
     t.append(hh)
-        # t.append(tweet.full_text)
-
     return jsonify({"success":True,"tweets":t})
 
 @app.route("/img2",methods=["POST"])
 def searchimg2():
     search_tweet = request.form.get("search_query")
-    # t = [[]]
-    print("i tried coming")
-    
     t = []
     t.clear()
     hh=analysse(search_tweet)
     t.append(hh)
-        # t.append(tweet.full_text)
 
     return jsonify({"success":True,"tweets":t})
 
@@ -344,29 +341,21 @@ def searchimg2():
 @app.route("/search",methods=["POST"])
 def search():
     search_tweet = request.form.get("search_query")
-    # t = [[]]
-
     t = []
     tweets = api.search(search_tweet, tweet_mode='extended')
     for tweet in tweets:
         polarity = TextBlob(tweet.full_text).sentiment.polarity
         subjectivity = TextBlob(tweet.full_text).sentiment.subjectivity
         t.append([tweet.full_text,polarity,subjectivity])
-        # t.append(tweet.full_text)
-
     return jsonify({"success":True,"tweets":t})
 
 
 @app.route('/res', methods=['POST'])
-def upload_file():
-    
+def upload_file():    
     if request.form.getlist('obs'):
         ff=request.form.getlist('obs')
         if len(ff) == 0:
-            print("i came")
-            print(fin)
             return render_template("objres.html", name = urls,data=fin,user="commercial")
-        print(ff)
         for objects in ff:
             hashtags=HashSearch(objects)
             ss=[]
@@ -402,8 +391,7 @@ def upload_file():
             u'obj_identified':oos,
             u'img_urls':pic_urls
             }
-        mydata.set(data)
-            
+        mydata.set(data)        
         return render_template("result.html", name = urls,data=fin,hashes=allt,user="commercial")
 
         
@@ -492,12 +480,9 @@ def listToString(s):
     return str1
 
 def sentiment_twitter(name):
-
     api = TwitterClient()
-
     tweets, tweet_value = api.get_tweets(query = name, count = 100)
     file1 = open("data1.txt","w")
-        
     x = np.arange(0,len(tweet_value),1)
     y = np.asarray(tweet_value)
     plt.plot(x,y)
@@ -505,7 +490,6 @@ def sentiment_twitter(name):
     plt.ylabel('Sentiment value')
     plt.xlabel('Tweet Count')
     plt.title('Twitter sentiment analysis for ' + name)
-    
     g_nn=str(current_milli_time())+".png"
     ppppp="static/images/"+g_nn
     plt.savefig(ppppp)
@@ -513,25 +497,19 @@ def sentiment_twitter(name):
     plt.clf()
     graphs_url.append(g_url)
     return g_url
-    # plt.show()
+
 
 def analysse(name):
     graphs_url.clear()
-    
     rr=TweetSearch(name)
-
-        # print(rr)
     catego=[]
     catego_val=[]
     temp2=""
-    print("i came")
     for uy in rr:
-
         temp=clean_text(uy)
         temp1=[]
         temp1.append(temp)
         result = ml.classifiers.classify(model_id, temp1)
-            # print(result.body)
         res = list(map(itemgetter('classifications'), result.body)) 
         if res[0]=="None":
             print("fuckin error")
@@ -540,11 +518,6 @@ def analysse(name):
             trm_c=list(map(itemgetter('confidence'),res[0]))
         except:
             print("what to do if error occurs")
-
-        print("_______________________________________-")
-        print("Tag: " + res_tag_name[0]) 
-        print(trm_c[0])
-        print("_______________________________________-") 
         if (res_tag_name[0] in catego):
             inf=catego.index(res_tag_name[0])
             temp=(float(catego_val[inf])+float(trm_c[0]))/2
@@ -556,16 +529,11 @@ def analysse(name):
             gret=str(te)
             catego.append(res_tag_name[0])
             catego_val.append(gret)
-
         temp1=[]         
-
-    print(catego)
     newval=[]
-    print(catego_val)
     for hy in catego_val:
         temp=float(hy)
         newval.append(temp)
-
     y_pos = np.arange(len(catego))
     plt.barh(y_pos, newval)
     plt.yticks(y_pos, catego)
@@ -574,12 +542,10 @@ def analysse(name):
     plt.rcParams['figure.figsize']=(20,12)
     g_nn=str(current_milli_time())+".png"
     ppppp="static/images/"+g_nn
-
     plt.savefig(ppppp)
     plt.clf()
     g_url=upload_blob("projectimages_christ",ppppp,g_nn)
     graphs_url.append(g_url)
-
     return g_url
 
 
