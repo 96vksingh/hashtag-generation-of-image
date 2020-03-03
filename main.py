@@ -35,24 +35,10 @@ from uclassify import uclassify
 from google.cloud import firestore
 
 
-
-
-# For measuring the inference time.
 import time
-# tf.executing_eagerly()
-global i
-# from firebase import Firebase
-# config = {
-#    "apiKey": "AIzaSyD-75D9XGgW_kXOKaHIYDKcr7AzBALs61o",
-#     "authDomain": "fluent-sprite-261715.firebaseapp.com",
-#     "databaseURL": "https://fluent-sprite-261715.firebaseio.com",
-#     "projectId": "fluent-sprite-261715",
-#     "storageBucket": "fluent-sprite-261715.appspot.com",
-#     "messagingSenderId": "258032626033",
-#     "appId": "1:258032626033:web:14b417ccc6a52e6afe2ed0"
-#   }
 
-# os.system("python3 twitt.py &")
+global i
+
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 ml = MonkeyLearn("d3380df585fa254763c9590ce7ece2e076423720")
@@ -61,10 +47,6 @@ i=0
 tf.compat.v1.enable_eager_execution()
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-
-# firebase = Firebase(config)
-# auth = firebase.auth()
-# db = firebase.database()
 
 allt=[]
 fff=[]
@@ -108,13 +90,6 @@ docs = db.collection(u'users').stream()
 
 #####################################################
 ####___________#######################################
-
-
-
-
-
-
-
 
 class TwitterClient(object):
     def __init__(self):
@@ -209,19 +184,16 @@ class TwitterClient(object):
 #########################################################
 
 
-
-
-
-
-
-
-
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if session:
+        return render_template('home.html')
+    else:
+        return render_template('index.html')
+    
 
 
 @app.route('/about')
@@ -230,11 +202,17 @@ def about():
 
 @app.route('/tag')
 def tag():
-    return render_template('tag.html')
+    if session:
+        return render_template('tag.html')
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/text')
 def text():
-    return render_template('text.html')
+    if session:
+        return render_template('text.html')
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/contact')
 def contact():
@@ -251,11 +229,8 @@ def indexi():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # Output message if something goes wrong...
     msg = ''
-    # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        # Create variables for easy access
         print("did i come over here")
         username = request.form['username']
         password = request.form['password']
@@ -281,17 +256,6 @@ def payment():
     if request.headers['Content-Type'] == 'text/html':
         print(request.data)
         return render_template("login.html")
-    # if request.method=="post":
-    #     print("or here")
-    #     mhhh=request.data
-    #     print(mhhh)
-    #     re
-    #     return redirect(url_for('log'))
-    # if request.method=="get":
-    #     print("oooor here")
-    #     mhhh=request.data
-    #     print(mhhh)
-    #     return redirect(url_for('log'))
     return redirect(url_for('log'))
     
 @app.route('/logout')
@@ -312,9 +276,7 @@ def feat():
 def signup():
     msg = ''
     print("up came or not")
-    # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method=='POST':
-        # Create variables for easy access
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
@@ -322,27 +284,30 @@ def signup():
         mobile = request.form['mobile']
         country = request.form['country']
         print("i came or not")
+        flag=0
         for doc in docs:
-            # ussers = list(map(itemgetter('username'), docs))
             temp=doc.to_dict()
             print(temp)
-            # print(ussers)         
+                    
             if temp['username']==username:
                 msg = 'Account already exists!'
+                flag=1
+                break
             else:
                 msg = 'You have successfully registered!'
                 data = {
                     u'username': username,
                     u'email': email,
                     u'password': password,
-                    u'bussiness': false,
+                    u'bussiness': "false",
                     u'mobile': mobile,
                     u'country':country
                     }
-        # auth.create_user_with_email_and_password(email, password)
-        # sigde=db.child("users").set(data)
-        ussssse.add(data)
-        return render_template('login.html')
+                flag=0
+                
+        if flag==0:
+            ussssse.add(data)
+        return render_template('login.html',msg=msg)
                   
     return render_template('signup.html',msg=msg)
 
@@ -376,8 +341,6 @@ def searchimg2():
 
 
 
-
-
 @app.route("/search",methods=["POST"])
 def search():
     search_tweet = request.form.get("search_query")
@@ -392,10 +355,6 @@ def search():
         # t.append(tweet.full_text)
 
     return jsonify({"success":True,"tweets":t})
-
-
-
-
 
 
 @app.route('/res', methods=['POST'])
@@ -525,8 +484,6 @@ def upload_file():
             return render_template("result.html", name = urls,f=fin,user="normal")
         return render_template("result.html", name = urls,f=res,user="o_iden")
 
-    
-
 
 def listToString(s):  
     str1 = ""    
@@ -535,7 +492,7 @@ def listToString(s):
     return str1
 
 def sentiment_twitter(name):
-    # creating object of TwitterClient Class
+
     api = TwitterClient()
 
     tweets, tweet_value = api.get_tweets(query = name, count = 100)
@@ -595,14 +552,12 @@ def analysse(name):
             catego_val[inf]=temp2
             temp=0
         else:
-            te=round(trm_c[0],2)
-                
+            te=round(trm_c[0],2)               
             gret=str(te)
             catego.append(res_tag_name[0])
             catego_val.append(gret)
 
-        temp1=[]
-            
+        temp1=[]         
 
     print(catego)
     newval=[]
@@ -612,8 +567,6 @@ def analysse(name):
         newval.append(temp)
 
     y_pos = np.arange(len(catego))
-        
-    
     plt.barh(y_pos, newval)
     plt.yticks(y_pos, catego)
     plt.xlabel('tweets analysed')
@@ -628,9 +581,6 @@ def analysse(name):
     graphs_url.append(g_url)
 
     return g_url
-        
-
-
 
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
@@ -662,7 +612,7 @@ def draw_boxes(boxes, class_names, scores, max_boxes=10, min_score=0.1):
     print(objs) 
     return objs
 
-module_handle = "https://tfhub.dev/google/faster_rcnn/openimages_v4/inception_resnet_v2/1"
+module_handle = "https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1"
 detector = hub.load(module_handle).signatures['default']
 
 def load_img(path):
@@ -760,7 +710,6 @@ def TweetSearch(tweet):
   status_texts = [status['text']
   for status in statuses]
 
-#  print(json.dumps(hashtags[0:10], indent=1))
   return status_texts
 
 
