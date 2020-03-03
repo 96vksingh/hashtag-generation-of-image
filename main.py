@@ -199,7 +199,7 @@ def index():
 @app.route('/about')
 def about():
     if session:
-        return render_template('about.html')
+        return render_template('about2.html')
     else:
         return render_template('about.html')
 
@@ -293,7 +293,9 @@ def signup():
         mobile = request.form['mobile']
         country = request.form['country']
         flag=0
-        for doc in docs:
+        db = firestore.Client()
+        docsss = db.collection(u'users').stream()
+        for doc in docss:
             temp=doc.to_dict()
             if temp['username']==username:
                 msg = 'Account already exists!'
