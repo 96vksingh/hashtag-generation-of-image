@@ -23,9 +23,3 @@ To containerize the application and run use docker commands:
 
   - docker run -p8080 [container tag name]
 
-
-
-
-  
-
-
