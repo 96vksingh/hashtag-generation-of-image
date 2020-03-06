@@ -18,11 +18,6 @@ import tempfile
 from six.moves.urllib.request import urlopen
 from six import BytesIO
 import numpy as np
-from PIL import Image
-from PIL import ImageColor
-from PIL import ImageDraw
-from PIL import ImageFont
-from PIL import ImageOps
 from werkzeug.utils import secure_filename
 from langdetect import detect
 import re
@@ -33,14 +28,13 @@ from monkeylearn import MonkeyLearn
 from operator import itemgetter 
 from uclassify import uclassify
 from google.cloud import firestore
-
-
 import time
 
 global i
 
 
 current_milli_time = lambda: int(round(time.time() * 1000))
+
 ml = MonkeyLearn("d3380df585fa254763c9590ce7ece2e076423720")
 model_id="cl_o46qggZq"
 i=0
@@ -56,22 +50,30 @@ fin=[]
 urls=[]
 app = Flask(__name__)
 
-
-consumer_key="qAZXMRvttjWaq4Ns8hR6KtIG7"
-consumer_secret="XTBuR26hXrJFc4qwL7EzvtWMIq5dq7pnB01FAWfsRa0ViMDcGx"
-access_token="497030183-5XWr6IF688dxPXKyF7Xx12eJ6PDSX4uNNaewc3fx"
-access_token_secret="JlZOhLs923LQp6LZ82OgWWPUAA9x9xb2YoWulPECvUEOI"
+#put your twitter keys
+consumer_key=""
+consumer_secret=""
+access_token=""
+access_token_secret=""
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+
+
+#download the key from gclod and save it as key.json in the current directory
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=r"key.json"
+
+#download the key from firebase firestaore and save them as key2.json
 cred = credentials.Certificate('key2.json')
 default_app = initialize_app(cred)
-hashes = firestore.Client().collection('fledge_used')
 
-ussssse = firestore.Client().collection('users')
+#relplace collection name where you want to sore the result with your collection name
+hashes = firestore.Client().collection([your collection])
+
+#replce collection with your users collection
+ussssse = firestore.Client().collection([yours users collection])
 mydata = hashes.document()
 
 app.secret_key = "secret key"
@@ -81,11 +83,20 @@ gt="submit"
 
 client = vision.ImageAnnotatorClient()
 storage_client = storage.Client()
-bucket_name = "projectimages_christ"
+
+
+# enter your bucket name
+
+bucket_name = ""
+
+
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 graphs_url=[]
 db = firestore.Client()
-docs = db.collection(u'users').stream()
+
+
+#enter your collection name
+docs = db.collection([your collection name]).stream()
 
 
 #####################################################
@@ -94,10 +105,10 @@ docs = db.collection(u'users').stream()
 class TwitterClient(object):
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        consumer_key = "qAZXMRvttjWaq4Ns8hR6KtIG7"
-        consumer_secret = "XTBuR26hXrJFc4qwL7EzvtWMIq5dq7pnB01FAWfsRa0ViMDcGx"
-        access_token = "497030183-5XWr6IF688dxPXKyF7Xx12eJ6PDSX4uNNaewc3fx"
-        access_token_secret = "JlZOhLs923LQp6LZ82OgWWPUAA9x9xb2YoWulPECvUEOI"
+        consumer_key = ""
+        consumer_secret = ""
+        access_token = ""
+        access_token_secret = ""
         try:
             self.auth = OAuthHandler(consumer_key, consumer_secret)
             self.auth.set_access_token(access_token, access_token_secret)
@@ -372,14 +383,15 @@ def upload_file():
         r=request.form.get('radio')       
         print(r)
         if request.form.get('radio') == '1':
-            print("hey i m coming here")
+           
             for file in files:
                 if file and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     fff.append(filename)
                     file.save(os.getcwd()+"/static/uploads/"+filename)
                     p=os.getcwd()+"/static/uploads/"+filename
-                    ur=upload_blob("projectimages_christ",p,filename)
+                    global bucket_name
+                    ur=upload_blob(bucket_name,p,filename)
                     urls.append(ur)
                     with io.open(p, 'rb') as image_file:
                         content = image_file.read()
@@ -405,7 +417,8 @@ def upload_file():
                     fff.append(filename)
                     file.save(os.getcwd()+"/static/uploads/"+filename)
                     p=os.getcwd()+"/static/uploads/"+filename
-                    ur=upload_blob("projectimages_christ",p,filename)
+                    global bucket_name
+                    ur=upload_blob(bucket_name,p,filename)
                     urls.append(ur)
                     with io.open(p, 'rb') as image_file:
                         content = image_file.read()
@@ -459,7 +472,8 @@ def sentiment_twitter(name):
     g_nn=str(current_milli_time())+".png"
     ppppp="static/images/"+g_nn
     plt.savefig(ppppp)
-    g_url=upload_blob("projectimages_christ",ppppp,g_nn)
+    global bucket_name
+    g_url=upload_blob(bucket_name,ppppp,g_nn)
     plt.clf()
     graphs_url.append(g_url)
     return g_url
@@ -510,7 +524,8 @@ def analysse(name):
     ppppp="static/images/"+g_nn
     plt.savefig(ppppp)
     plt.clf()
-    g_url=upload_blob("projectimages_christ",ppppp,g_nn)
+    global bucket_name
+    g_url=upload_blob(bucket_name,ppppp,g_nn)
     graphs_url.append(g_url)
     return g_url
 
@@ -543,6 +558,9 @@ def draw_boxes(boxes, class_names, scores, max_boxes=10, min_score=0.1):
             print(display_str)
     print(objs) 
     return objs
+
+
+# here you can use your own pre tarined model which u want from tensorflow
 
 module_handle = "https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1"
 detector = hub.load(module_handle).signatures['default']
@@ -595,10 +613,10 @@ def sample_classify_text(text_content):
 
 
 def HashSearch(hashtag):
-    CONSUMER_KEY = 'qAZXMRvttjWaq4Ns8hR6KtIG7'
-    CONSUMER_SECRET = 'XTBuR26hXrJFc4qwL7EzvtWMIq5dq7pnB01FAWfsRa0ViMDcGx'
-    OAUTH_TOKEN = '497030183-5XWr6IF688dxPXKyF7Xx12eJ6PDSX4uNNaewc3fx'
-    OAUTH_TOKEN_SECRET = 'JlZOhLs923LQp6LZ82OgWWPUAA9x9xb2YoWulPECvUEOI'
+    CONSUMER_KEY = ''
+    CONSUMER_SECRET = ''
+    OAUTH_TOKEN = ''
+    OAUTH_TOKEN_SECRET = ''
     auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,
                            CONSUMER_KEY, CONSUMER_SECRET)
     twitter_api = twitter.Twitter(auth=auth)
@@ -622,10 +640,10 @@ def HashSearch(hashtag):
     return hashtags
 
 def TweetSearch(tweet):
-  CONSUMER_KEY = 'qAZXMRvttjWaq4Ns8hR6KtIG7'
-  CONSUMER_SECRET = 'XTBuR26hXrJFc4qwL7EzvtWMIq5dq7pnB01FAWfsRa0ViMDcGx'
-  OAUTH_TOKEN = '497030183-5XWr6IF688dxPXKyF7Xx12eJ6PDSX4uNNaewc3fx'
-  OAUTH_TOKEN_SECRET = 'JlZOhLs923LQp6LZ82OgWWPUAA9x9xb2YoWulPECvUEOI'
+  CONSUMER_KEY = ''
+  CONSUMER_SECRET = ''
+  OAUTH_TOKEN = ''
+  OAUTH_TOKEN_SECRET = ''
   auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,
                          CONSUMER_KEY, CONSUMER_SECRET)
   twitter_api = twitter.Twitter(auth=auth)
@@ -650,9 +668,6 @@ if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0',port=8080)
 
 
-
-
-    # hutrazapso@enayu.com
 
 
 
