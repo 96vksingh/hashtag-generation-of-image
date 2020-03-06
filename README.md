@@ -21,5 +21,5 @@ The application aims to provide hashttags  for the image provided by the user an
 To containerize the application and run use docker commands:
   - docker build -t [container tag name] .
 
-  - docker run -p8080 [container tag name]
+  - docker run -p8080:8080 [container tag name]
 
